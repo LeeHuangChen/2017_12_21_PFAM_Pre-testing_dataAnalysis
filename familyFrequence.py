@@ -39,18 +39,20 @@ def main():
 			pfamDict[pfamAcc]=[pid]
 
 		#add to famToNum
-		histNum=None
+		#histNum=None
 		if pfamAcc in famToNum.keys():
-			histNum=famToNum[pfamAcc]
+			#histNum=famToNum[pfamAcc]
 		else:
 			famToNum[pfamAcc]=tempFamNum
-			histNum=tempFamNum
+			#histNum=tempFamNum
 			tempFamNum+=1
 
 		#add to famCount
 		if pfamAcc in famCount.keys():
-			
-		famCount.append(histNum)
+			famCount[pfamAcc]+=1
+		else:
+			famCount[pfamAcc]=1
+		#famCount.append(histNum)
 
 
 	#dump all info
