@@ -19,46 +19,27 @@ def main():
 
 
 	pfamDict={}
-	famToNum={}
-	famCount={}
-
-	tempFamNum=0
+	
 
 	for i, line in enumerate(lines):
-		percent(i,len(lines),100)
+		percent(i,len(lines),50)
 		#0		1			2				3				4			5			6			7
 		#PDB_ID	CHAIN_ID	PdbResNumStart	PdbResNumEnd	PFAM_ACC	PFAM_Name	PFAM_desc	eValue	
 		arr=line.split("\t")
-		pid=arr[0]
-		pfamAcc=arr[4]
+		if len(arr)>6:
+			pid=arr[0]
+			pfamName=arr[5]
 
-		#add to pfam dict
-		if pfamAcc in pfamDict.keys():
-			pfamDict[pfamAcc].append(pid)
-		else:
-			pfamDict[pfamAcc]=[pid]
-
-		#add to famToNum
-		#histNum=None
-		if pfamAcc in famToNum.keys():
-			#histNum=famToNum[pfamAcc]
-		else:
-			famToNum[pfamAcc]=tempFamNum
-			#histNum=tempFamNum
-			tempFamNum+=1
-
-		#add to famCount
-		if pfamAcc in famCount.keys():
-			famCount[pfamAcc]+=1
-		else:
-			famCount[pfamAcc]=1
-		#famCount.append(histNum)
-
+			#add to pfam dict
+			if pfamName in pfamDict.keys():
+				pfamDict[pfamName].append(pid)
+			else:
+				pfamDict[pfamName]=[pid]
+			
 
 	#dump all info
-	dump(pfamDict,open(os.path.join(outputFolder,"pfamDict.cpickle")))
-	dump(famToNum,open(os.path.join(outputFolder,"famToNum.cpickle")))
-	dump(famCount,open(os.path.join(outputFolder,"famCount.cpickle")))
+	dump(pfamDict,open(os.path.join(outputFolder,"pfamDict.cpickle"),"w"))
+	
 
 
 if __name__ == '__main__':
